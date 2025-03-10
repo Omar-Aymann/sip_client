@@ -21,11 +21,30 @@ function App() {
 
   function connect() {
     coolPhone.start();
+    coolPhone.register();
   }
   function call() {
-    coolPhone.call("sip:202@192.168.0.34", {
-      mediaConstraints: {},
-    });
+    // Register callbacks to desired call events
+    const eventHandlers = {
+      progress: function (e) {
+        console.log("call is in progress");
+      },
+      failed: function (e) {
+        console.log("call failed with cause: " + e.data.cause);
+      },
+      ended: function (e) {
+        console.log("call ended with cause: " + e.data.cause);
+      },
+      confirmed: function (e) {
+        console.log("call confirmed");
+      },
+    };
+
+    const options = {
+      eventHandlers: eventHandlers,
+      mediaConstraints: { audio: true, video: true },
+    };
+    coolPhone.call("sip:200@192.168.0.34", options);
   }
 
   return (
