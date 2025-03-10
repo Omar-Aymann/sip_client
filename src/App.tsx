@@ -22,11 +22,17 @@ function App() {
   function connect() {
     coolPhone.start();
   }
+  function call() {
+    coolPhone.call("sip:202@192.168.0.34", {
+      mediaConstraints: {},
+    });
+  }
 
   return (
     <div className="App">
       <h1>SIP Client</h1>
       <button onClick={connect}>Connect</button>
+      <button onClick={call}>Call User</button>
       <audio id="remote-audio" autoPlay></audio>
     </div>
   );
