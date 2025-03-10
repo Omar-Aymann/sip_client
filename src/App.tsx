@@ -2,16 +2,21 @@ import "./App.css";
 import { WebSocketInterface, UA } from "jssip";
 
 function App() {
-  const socket = new WebSocketInterface("wss:/192.168.0.33:8089/ws");
+  const socket = new WebSocketInterface("wss:/192.168.0.34:8089/ws");
   const configuration = {
     sockets: [socket],
-    uri: "sip:200@192.168.0.33",
-    password: "200@200",
+    uri: "sip:202@192.168.0.34",
+    password: "202@202",
   };
+
   const coolPhone = new UA(configuration);
 
   coolPhone.on("connected", function () {
     console.log("Connected!");
+  });
+  coolPhone.on("newRTCSession", function (e: unknown) {
+    console.log(e);
+    console.log("incoming call");
   });
 
   function connect() {
